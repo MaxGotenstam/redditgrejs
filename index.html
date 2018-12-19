@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Reddit2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <input type="file" id="input" onchange="readFile()" />
+    <script>
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+      } else {
+        alert("The File APIs are not fully supported in this browser.");
+      }
+      readFile = function() {
+        let input = document.querySelector("#input");
+        //let fr = new FileReader()
+        let file = input.files[0];
+
+        if (file) {
+          let r = new FileReader();
+          r.onload = function(e) {
+            let links = e.target.result.split("\n");
+            //console.log(contents.split("\n"))
+            links.forEach(element => {
+                let img = document.createElement("img")
+                img.src = element
+                img.style.width = "200px"
+                document.body.appendChild(img)
+            });
+
+
+          };
+          r.readAsText(file);
+        }
+        input.remove()
+      };
+    </script>
+
+  </body>
+</html>
